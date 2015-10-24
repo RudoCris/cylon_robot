@@ -3,7 +3,7 @@ var mraa = require('mraa');
 
 Cylon.robot({
   connections: {
-    server: { adaptor: 'mqtt', host: 'mqtt://localhost:1883' }
+    server: { adaptor: 'mqtt', host: 'mqtt://0.0.0.0:1883' }
   },
 
   devices: {
@@ -25,14 +25,14 @@ Cylon.robot({
       my.connections.server.subscribe(socket);
     }
 
-    var command = {
+    var commands = {
       "on": 1,
       "off": 0
     };
 
     my.connections.server.on('message', function (channel, data) {
       sockets[channel].dir(mraa.DIR_OUT);
-      sockets[channel].write(command[data.toString()]);
+      sockets[channel].write(commands[data.toString()]);
     });
 
   }
