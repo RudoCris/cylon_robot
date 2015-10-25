@@ -33,7 +33,7 @@ Cylon.robot({
     my.connections.server.on('message', function (channel, data) {
       sockets[channel].dir(mraa.DIR_OUT);
       sockets[channel].write(commands[data.toString()]);
-      publish('channel'+'/answer', 'success');
+      my.connections.server.publish(channel+'/answer', 'success');
     });
   }
 }).start();
