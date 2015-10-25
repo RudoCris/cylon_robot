@@ -15,10 +15,10 @@ Cylon.robot({
 
   work: function(my) {
     var sockets = {
-      "socket1": mraa.Gpio(2),
-      "socket2": mraa.Gpio(3),
-      "socket3": mraa.Gpio(4),
-      "socket4": mraa.Gpio(5)
+      "socket1": new mraa.Gpio(2),
+      "socket2": new mraa.Gpio(3),
+      "socket3": new mraa.Gpio(4),
+      "socket4": new mraa.Gpio(5)
     };
     
     for(socket in sockets){
