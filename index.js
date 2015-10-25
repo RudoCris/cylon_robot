@@ -14,6 +14,7 @@ Cylon.robot({
   },
 
   work: function(my) {
+
     var sockets = {
       "socket1": new mraa.Gpio(2),
       "socket2": new mraa.Gpio(3),
@@ -24,6 +25,7 @@ Cylon.robot({
     for(socket in sockets){
       my.connections.server.subscribe(socket);
     }
+    my.connections.server.subscribe("lordIsHere");
 
     var commands = {
       "on": 1,
@@ -31,10 +33,18 @@ Cylon.robot({
     };
 
     my.connections.server.on('message', function (channel, data) {
-      debugger;
-      sockets[channel].dir(mraa.DIR_OUT);
-      sockets[channel].write(commands[data.toString()]);
-      my.connections.server.publish(channel+'/answer', 'SUCCESS');
+      if(channel in sockets){
+        sockets[channel].dir(mraa.DIR_OUT);
+        sockets[channel].write(commands[data.toString()]);
+        my.connections.server.publish(channel+'/answer', 'SUCCESS');  
+      }
+      if (channel == "lordIsHere") {
+        var states = [];
+        for(socket in sockets){
+          states[socket] = socket.read();
+        }
+        my.connections.server.publish("socketsMyLord", JSON.stringify(states)); 
+      }    
     });
   }
 }).start();
