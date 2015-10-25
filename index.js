@@ -3,7 +3,7 @@ var mraa = require('mraa');
 
 Cylon.robot({
   connections: {
-    server: { adaptor: 'mqtt', host: 'mqtt://0.0.0.0:1883' }
+    server: { adaptor: 'mqtt', host: 'mqtt://77.220.132.233:1883' }
   },
 
   devices: {
