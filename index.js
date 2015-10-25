@@ -43,6 +43,7 @@ Cylon.robot({
         for(socket in sockets){
           states[socket] = sockets[socket].read();
         }
+        debugger;
         my.connections.server.publish("socketsMyLord", JSON.stringify(states)); 
       }    
     });
