@@ -39,7 +39,7 @@ Cylon.robot({
         my.connections.server.publish(channel+'/answer', 'SUCCESS');  
       }
       if (channel == "lordIsHere") {
-        var states = [];
+        var states = {};
         for(socket in sockets){
           states[socket] = sockets[socket].read();
         }
