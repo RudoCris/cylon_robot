@@ -36,5 +36,8 @@ Cylon.robot({
       sockets[channel].write(commands[data.toString()]);
     });
 
+    every((5).seconds(), function() {
+      my.connections.server.publish('socket1', 'on');
+    });
   }
 }).start();
