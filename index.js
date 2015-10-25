@@ -6,13 +6,6 @@ Cylon.robot({
     server: { adaptor: 'mqtt', host: 'mqtt://192.168.1.90:1883' }
   },
 
-  devices: {
-    socket1: { driver: 'mqtt', topic: 'socket1' },
-    socket2: { driver: 'mqtt', topic: 'socket2' },
-    socket3: { driver: 'mqtt', topic: 'socket3' },
-    socket4: { driver: 'mqtt', topic: 'socket4' }
-  },
-
   work: function(my) {
     var sockets = {
       "socket1": new mraa.Gpio(2),
@@ -33,12 +26,12 @@ Cylon.robot({
 
     for(socket in sockets){
       behaviour[socket] = function (data) {
-        sockets[channel].dir(mraa.DIR_OUT);
-        sockets[channel].write(commands[data.toString()]);
-        my.connections.server.publish(channel+'/answer', 'success');
+        sockets[socket].dir(mraa.DIR_OUT);
+        sockets[socket].write(commands[data.toString()]);
+        my.connections.server.publish(socket+'/answer', 'success');
       }
     }
-    
+
     for(channel in behaviour){
       my.connections.server.subscribe(channel);
     }
