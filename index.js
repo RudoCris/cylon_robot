@@ -34,6 +34,7 @@ Cylon.robot({
       debugger;
       sockets[channel].dir(mraa.DIR_OUT);
       sockets[channel].write(commands[data.toString()]);
+      my.connections.server.publish(channel+'/answer', 'SUCCESS');
     });
   }
 }).start();
