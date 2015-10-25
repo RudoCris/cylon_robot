@@ -42,6 +42,7 @@ Cylon.robot({
     };
 
     my.connections.server.on('message', function (channel, data) {
+      debugger;
       behaviour[channel](data);
     });
   }
